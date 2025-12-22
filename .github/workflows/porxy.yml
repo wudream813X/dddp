@@ -1,0 +1,20 @@
+name: Start porxy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup TinyPorxy
+        run: sudo apt install tinyproxy -y
+      - name: Setup cloudflared
+        run: |
+          curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o cloudflared
+          chmod +x cloudflared
+          sudo mv cloudflared /usr/local/bin/
+      - name: Run TinyPorxy
+        run: sudo tinyproxy
+      - name: Run cloudflared
+        run: cloudflared tunnel --url tcp://127.0.0.1:8888
