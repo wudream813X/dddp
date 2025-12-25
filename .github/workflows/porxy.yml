@@ -17,4 +17,4 @@ jobs:
       - name: Run TinyPorxy
         run: sudo tinyproxy
       - name: Run cloudflared
-        run: cloudflared tunnel --url tcp://127.0.0.1:8888
+        run: timeout 10s cloudflared tunnel --url tcp://127.0.0.1:8888
